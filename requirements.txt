@@ -45,3 +45,4 @@ w3lib==1.22.0
 websockets==10.1
 wsproto==1.1.0
 zope.interface==5.4.0
+psycopg~=3.0.15
