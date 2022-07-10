@@ -1,20 +1,29 @@
 import psycopg2
 import os
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 
 load_dotenv()
+config = dotenv_values()
+
+DEBUG = bool(config.get('DEBUG'))
+DATABASE_URL = os.environ['DATABASE_URL']
+
+db_credentials = {
+    'database': 'petitions_info',
+    'user': 'postgres',
+    'password': 'password',
+    'host': 'localhost',
+    'port': 5432
+}
 
 
 class PetitionsScraperPipeline:
 
     def __init__(self):
-        self.con = psycopg2.connect(
-            database=os.environ.get('DATABASE'),
-            user=os.environ.get('USER'),
-            password=os.environ.get('PASSWORD'),
-            host=os.environ.get('host'), port=os.environ.get('PORT')
-        )
+        if DEBUG:
+            self.con = psycopg2.connect(**db_credentials)
+        self.con = psycopg2.connect(DATABASE_URL, sslmode='require')
         self.con.autocommit = True
         self.cur = self.con.cursor()
         self.cur.execute("""
