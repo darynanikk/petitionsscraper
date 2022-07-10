@@ -19,7 +19,7 @@ class PetitionsScraperPipeline:
             spider.logger.warn("Item already in database: %s" % item['name'])
         else:
             self.cur.execute("""
-                INSERT INTO petitions (number, name, date) VALUES (?, ?, ?)
+                INSERT INTO petitions (order_number, name, date) VALUES (?, ?, ?)
             """,
             (
                 item['order_number'],

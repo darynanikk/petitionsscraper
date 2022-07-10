@@ -1,7 +1,4 @@
-import json
-import time
-
-from scrapy import Request, FormRequest, Spider, Selector
+from scrapy import Request, Spider, Selector
 from petitionsscraper.items import PetitionsScraperItem
 
 
